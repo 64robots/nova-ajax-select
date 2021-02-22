@@ -115,8 +115,16 @@ export default {
         },
 
         isWatchingComponent(component) {
-            return component.field !== undefined
-                && component.field.attribute == this.field.parent_attribute;
+            if (component.field === undefined) {
+                return false
+            }
+            if (component.field.attribute == this.field.parent_attribute) {
+                return true
+            }
+            if (component.$parent.field != undefined && component.$parent.field.component === 'nova-flexible-content' && component.field.attribute.split('__')[1] == this.field.parent_attribute) {
+                return true
+            }
+            return false
         }
     },
 }
